@@ -1628,6 +1628,64 @@ body::after {
   .trends-grid { grid-template-columns: 1fr; }
 }
 
+/* ==========================================================================
+   퀴즈 결과 전환 (CTA + 공유) + 토스트  — 축1
+   ========================================================================== */
+.result-actions {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.result-actions .btn { flex: 0 1 auto; }
+
+/* 텍스트형 보조 버튼 (다시 테스트하기) */
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--color-text-muted, rgba(255,255,255,0.5));
+  font: inherit;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  padding: 0.4rem;
+  transition: color 0.2s ease;
+}
+.btn-link:hover { color: hsl(86, 100%, 58%); }
+
+@media (max-width: 600px) {
+  .result-actions { flex-direction: column; align-items: stretch; }
+}
+
+/* 토스트 알림 */
+.bkk-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  transform: translate(-50%, 1.5rem);
+  max-width: min(90vw, 420px);
+  background: rgba(15, 15, 15, 0.96);
+  border: 1px solid var(--color-border, rgba(255,255,255,0.12));
+  color: #fff;
+  padding: 0.95rem 1.3rem;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.bkk-toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 </style>
 </head>
 <body>
@@ -1722,7 +1780,11 @@ body::after {
             <p class="result-desc" id="result-level-desc">
               이미 당신은 대중적인 명소는 꿰뚫고 로컬의 힙함을 본능적으로 찾는 방콕 고수입니다! 아래 가이드에서 당신의 감성을 저격할 성지들을 확인해보세요.
             </p>
-            <button class="btn btn-primary" id="btn-restart-quiz" data-t="quiz.btnRestart">다시 테스트하기</button>
+            <div class="result-actions">
+              <button class="btn btn-primary" id="btn-result-cta" data-t="result.cta">🗺 비밀 지도 무료로 받기</button>
+              <button class="btn btn-secondary" id="btn-share-result" data-t="result.share">📤 결과 공유하기</button>
+            </div>
+            <button class="btn-link" id="btn-restart-quiz" data-t="quiz.btnRestart">다시 테스트하기</button>
           </div>
         </div>
       </div>
@@ -2024,6 +2086,7 @@ body::after {
           </p>
           <form class="newsletter-form" id="newsletter-form">
             <input type="email" class="newsletter-input" placeholder="이메일 주소를 입력해 주세요" required id="user-email">
+            <input type="hidden" id="lead-context" name="context" value="direct">
             <button type="submit" class="btn btn-primary" data-t="newsletter.btn">비밀 지도 받기</button>
           </form>
           <div class="form-message" id="form-msg"></div>
@@ -2104,6 +2167,12 @@ document.addEventListener('DOMContentLoaded', () => {
       "quiz.desc": "10번을 다녀와도 몰랐던 숨겨진 사실들. 당신의 성향과 지식을 확인하고 등급을 받아보세요.",
       "quiz.resultBadge": "YOUR BKK LEVEL",
       "quiz.btnRestart": "다시 테스트하기",
+      "result.cta": "🗺 비밀 지도 무료로 받기",
+      "result.share": "📤 결과 공유하기",
+      "result.shareTitle": "나의 방콕지수 결과 | BKK BEYOND",
+      "result.shareTpl": "나의 방콕지수는 {score}% — {level}! 🇹🇭\n당신의 방콕지수는 몇 %일까요? 지금 테스트해보세요 👇",
+      "share.copied": "📋 링크가 복사됐어요! 친구에게 붙여넣어 공유하세요.",
+      "share.failed": "공유에 실패했어요. 링크를 직접 복사해 주세요.",
 
       "curation.subtitle": "Handpicked Hotspots",
       "curation.title": "가장 뜨거운 로컬 골목 3가지 큐레이션",
@@ -2175,6 +2244,12 @@ document.addEventListener('DOMContentLoaded', () => {
       "quiz.desc": "Hidden facts you might not know even after 10 visits. Check your travel style and get your tier.",
       "quiz.resultBadge": "YOUR BKK LEVEL",
       "quiz.btnRestart": "Restart Quiz",
+      "result.cta": "🗺 Get the Secret Map — Free",
+      "result.share": "📤 Share My Result",
+      "result.shareTitle": "My BKK Index | BKK BEYOND",
+      "result.shareTpl": "My BKK Index is {score}% — {level}! 🇹🇭\nWhat's your BKK Index? Take the test now 👇",
+      "share.copied": "📋 Link copied! Paste it to share with friends.",
+      "share.failed": "Sharing failed. Please copy the link manually.",
 
       "curation.subtitle": "Handpicked Hotspots",
       "curation.title": "3 Trendiest Local Alleys Curated",
@@ -2246,6 +2321,12 @@ document.addEventListener('DOMContentLoaded', () => {
       "quiz.desc": "เรื่องลับๆ ที่คุณอาจไม่รู้แม้จะมาเกิน 10 ครั้ง เช็คสไตล์การเดินทางและรับระดับของคุณเลย",
       "quiz.resultBadge": "YOUR BKK LEVEL",
       "quiz.btnRestart": "เริ่มทดสอบใหม่",
+      "result.cta": "🗺 รับแผนที่ลับ — ฟรี",
+      "result.share": "📤 แชร์ผลลัพธ์",
+      "result.shareTitle": "ดัชนีกรุงเทพฯ ของฉัน | BKK BEYOND",
+      "result.shareTpl": "ดัชนีกรุงเทพฯ ของฉันคือ {score}% — {level}! 🇹🇭\nแล้วของคุณล่ะ? มาทดสอบกันเลย 👇",
+      "share.copied": "📋 คัดลอกลิงก์แล้ว! วางเพื่อแชร์ให้เพื่อน",
+      "share.failed": "แชร์ไม่สำเร็จ กรุณาคัดลอกลิงก์ด้วยตนเอง",
 
       "curation.subtitle": "Handpicked Hotspots",
       "curation.title": "3 ตรอกโลคอลที่ฮิปที่สุดที่คัดสรรมาแล้ว",
@@ -2840,6 +2921,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentStep = 0;
   let totalScore = 0;
+  let lastResult = { score: 0, percent: 0, level: '' };
 
   function updateProgressBar() {
     const totalQuestions = quizQuestions[currentLang].length;
@@ -2929,7 +3011,12 @@ document.addEventListener('DOMContentLoaded', () => {
     resultScore.innerText = totalScore;
     resultLevelTitle.innerText = levelTitle;
     resultLevelDesc.innerText = levelDesc;
-    
+
+    // 공유·리드캡처가 참조할 결과 컨텍스트 저장
+    lastResult.score = totalScore;
+    lastResult.percent = Math.round((totalScore / 120) * 100);
+    lastResult.level = levelTitle;
+
     quizResult.classList.add('active');
   }
 
@@ -2937,10 +3024,70 @@ document.addEventListener('DOMContentLoaded', () => {
     currentStep = 0;
     totalScore = 0;
     updateProgressBar();
-    
+
     quizResult.classList.remove('active');
     renderQuizQuestion();
   });
+
+  /* --- 경량 토스트 --- */
+  function showToast(msg) {
+    let toast = document.getElementById('bkk-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'bkk-toast';
+      toast.className = 'bkk-toast';
+      document.body.appendChild(toast);
+    }
+    toast.innerText = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toast.classList.remove('show'), 3200);
+  }
+
+  /* --- 결과 → 뉴스레터 전환 브릿지 --- */
+  const btnResultCta = document.getElementById('btn-result-cta');
+  if (btnResultCta) {
+    btnResultCta.addEventListener('click', () => {
+      // 리드에 퀴즈 레벨 태깅 (세그먼테이션용)
+      const ctx = document.getElementById('lead-context');
+      if (ctx) ctx.value = `quiz:${lastResult.percent}%:${lastResult.level}`;
+      const target = document.getElementById('newsletter-section');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => {
+        const email = document.getElementById('user-email');
+        if (email) email.focus({ preventScroll: true });
+      }, 600);
+    });
+  }
+
+  /* --- 결과 공유 (Web Share API → 클립보드 폴백) --- */
+  const btnShareResult = document.getElementById('btn-share-result');
+  if (btnShareResult) {
+    btnShareResult.addEventListener('click', async () => {
+      const t = translations[currentLang];
+      const url = window.location.href.split('#')[0];
+      const text = t["result.shareTpl"]
+        .replace('{score}', lastResult.percent)
+        .replace('{level}', lastResult.level);
+
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: t["result.shareTitle"], text, url });
+          return;
+        }
+        await navigator.clipboard.writeText(`${text}\n${url}`);
+        showToast(t["share.copied"]);
+      } catch (err) {
+        if (err && err.name === 'AbortError') return; // 사용자가 공유 취소
+        try {
+          await navigator.clipboard.writeText(`${text}\n${url}`);
+          showToast(t["share.copied"]);
+        } catch (_) {
+          showToast(t["share.failed"]);
+        }
+      }
+    });
+  }
 
 
   /* ==========================================================================
@@ -3032,19 +3179,61 @@ document.addEventListener('DOMContentLoaded', () => {
   const newsletterForm = document.getElementById('newsletter-form');
   const formMsg = document.getElementById('form-msg');
 
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('user-email').value;
+  // ⚠️ 리드 수집 엔드포인트. Formspree(https://formspree.io) 폼 ID로 교체하세요.
+  //    비워두면 백엔드 없이 localStorage 에만 저장됩니다(데이터 유실 방지용 백업).
+  const LEAD_ENDPOINT = ""; // 예: "https://formspree.io/f/xxxxxxxx"
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      if (email) {
-        formMsg.innerText = translations[currentLang]["newsletter.success"];
-        formMsg.className = "form-message success";
-        document.getElementById('user-email').value = "";
-      } else {
-        formMsg.innerText = translations[currentLang]["newsletter.error"];
+  function saveLeadLocal(lead) {
+    try {
+      const key = 'bkk_leads';
+      const leads = JSON.parse(localStorage.getItem(key) || '[]');
+      leads.push(lead);
+      localStorage.setItem(key, JSON.stringify(leads));
+    } catch (_) { /* localStorage 불가 환경 무시 */ }
+  }
+
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailEl = document.getElementById('user-email');
+      const email = (emailEl.value || '').trim();
+      const t = translations[currentLang];
+
+      // 1) 검증
+      if (!EMAIL_RE.test(email)) {
+        formMsg.innerText = t["newsletter.error"];
         formMsg.className = "form-message error";
+        emailEl.focus();
+        return;
       }
+
+      // 2) 리드 구성 (퀴즈 레벨 컨텍스트 + 언어 태깅)
+      const lead = {
+        email,
+        context: (document.getElementById('lead-context') || {}).value || 'direct',
+        lang: currentLang,
+        ts: new Date().toISOString(),
+      };
+
+      // 3) localStorage 백업 (항상 — 전송 실패해도 유실 0)
+      saveLeadLocal(lead);
+
+      // 4) 엔드포인트 전송 (설정된 경우)
+      if (LEAD_ENDPOINT) {
+        try {
+          await fetch(LEAD_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(lead),
+          });
+        } catch (_) { /* 네트워크 실패해도 localStorage 백업 존재 */ }
+      }
+
+      // 5) 성공 UX
+      formMsg.innerText = t["newsletter.success"];
+      formMsg.className = "form-message success";
+      emailEl.value = "";
     });
   }
 

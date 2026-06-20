@@ -1576,3 +1576,61 @@ body::after {
 @media (max-width: 768px) {
   .trends-grid { grid-template-columns: 1fr; }
 }
+
+/* ==========================================================================
+   퀴즈 결과 전환 (CTA + 공유) + 토스트  — 축1
+   ========================================================================== */
+.result-actions {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.result-actions .btn { flex: 0 1 auto; }
+
+/* 텍스트형 보조 버튼 (다시 테스트하기) */
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--color-text-muted, rgba(255,255,255,0.5));
+  font: inherit;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  padding: 0.4rem;
+  transition: color 0.2s ease;
+}
+.btn-link:hover { color: hsl(86, 100%, 58%); }
+
+@media (max-width: 600px) {
+  .result-actions { flex-direction: column; align-items: stretch; }
+}
+
+/* 토스트 알림 */
+.bkk-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  transform: translate(-50%, 1.5rem);
+  max-width: min(90vw, 420px);
+  background: rgba(15, 15, 15, 0.96);
+  border: 1px solid var(--color-border, rgba(255,255,255,0.12));
+  color: #fff;
+  padding: 0.95rem 1.3rem;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.bkk-toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}

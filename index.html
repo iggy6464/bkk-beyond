@@ -142,7 +142,11 @@
             <p class="result-desc" id="result-level-desc">
               이미 당신은 대중적인 명소는 꿰뚫고 로컬의 힙함을 본능적으로 찾는 방콕 고수입니다! 아래 가이드에서 당신의 감성을 저격할 성지들을 확인해보세요.
             </p>
-            <button class="btn btn-primary" id="btn-restart-quiz" data-t="quiz.btnRestart">다시 테스트하기</button>
+            <div class="result-actions">
+              <button class="btn btn-primary" id="btn-result-cta" data-t="result.cta">🗺 비밀 지도 무료로 받기</button>
+              <button class="btn btn-secondary" id="btn-share-result" data-t="result.share">📤 결과 공유하기</button>
+            </div>
+            <button class="btn-link" id="btn-restart-quiz" data-t="quiz.btnRestart">다시 테스트하기</button>
           </div>
         </div>
       </div>
@@ -444,6 +448,7 @@
           </p>
           <form class="newsletter-form" id="newsletter-form">
             <input type="email" class="newsletter-input" placeholder="이메일 주소를 입력해 주세요" required id="user-email">
+            <input type="hidden" id="lead-context" name="context" value="direct">
             <button type="submit" class="btn btn-primary" data-t="newsletter.btn">비밀 지도 받기</button>
           </form>
           <div class="form-message" id="form-msg"></div>

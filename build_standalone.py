@@ -49,7 +49,8 @@ def main():
             css = f.read()
         link_re = re.compile(r'<link[^>]+href="\./style\.css"[^>]*>')
         if link_re.search(html):
-            html = link_re.sub("<style>\n" + css + "\n</style>", html, count=1)
+            # 함수형 치환: 본문(css)의 백슬래시를 이스케이프로 오인하지 않도록
+            html = link_re.sub(lambda _: "<style>\n" + css + "\n</style>", html, count=1)
             report.append("style.css → <style> 인라인")
     else:
         report.append("[skip] style.css 없음")
@@ -74,7 +75,8 @@ def main():
         js_safe = js.replace("</script>", "<\\/script>")
         script_re = re.compile(r'<script[^>]+src="\./app\.js"[^>]*>\s*</script>')
         if script_re.search(html):
-            html = script_re.sub("<script>\n" + js_safe + "\n</script>", html, count=1)
+            # 함수형 치환: app.js의 정규식 등 백슬래시를 그대로 보존 (re escape 회피)
+            html = script_re.sub(lambda _: "<script>\n" + js_safe + "\n</script>", html, count=1)
             report.append("app.js → <script> 인라인")
     else:
         report.append("[skip] app.js 없음")
