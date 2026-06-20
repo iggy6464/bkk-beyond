@@ -1,0 +1,28 @@
+{
+  "_meta": "트렌드 갱신용 drop 템플릿 (2주 P1 주기). '_' 접두 키는 병합 시 무시됨. 복사해서 drops/YYYY-MM-DD.trends.json 으로 저장 후 채우기.",
+  "_howto": "수집: NaverSearch datalab_search(검색관심도) + search_blog(date 정렬, 언급 핫스팟). mentions/wow 는 지표성 — source_note 에 방법 명시.",
+  "version": "YYYY-MM-DD",
+  "trends": {
+    "updated": "YYYY-MM-DD",
+    "source_note": {
+      "ko": "네이버 데이터랩 검색관심도 + 블로그 언급량 집계 (지표성 수치)",
+      "en": "Naver DataLab search interest + blog mentions (indicative figures)",
+      "th": "ความสนใจค้นหา Naver DataLab + การกล่าวถึงในบล็อก (ตัวเลขเชิงบ่งชี้)"
+    },
+    "_rule_hotspots": "정확히 5개. rank 1..5 유일. mentions/wow 는 정수(wow 음수 가능).",
+    "hotspots": [
+      { "rank": 1, "name": "장소/토픽", "mentions": 0, "wow": 0, "tag": "#tag" },
+      { "rank": 2, "name": "장소/토픽", "mentions": 0, "wow": 0, "tag": "#tag" },
+      { "rank": 3, "name": "장소/토픽", "mentions": 0, "wow": 0, "tag": "#tag" },
+      { "rank": 4, "name": "장소/토픽", "mentions": 0, "wow": 0, "tag": "#tag" },
+      { "rank": 5, "name": "장소/토픽", "mentions": 0, "wow": 0, "tag": "#tag" }
+    ],
+    "_rule_patterns": "정확히 4개. label_ko/label_en/unit 문자열, value 숫자.",
+    "patterns": [
+      { "label_ko": "지표명", "label_en": "Label", "value": 0, "unit": "%" },
+      { "label_ko": "지표명", "label_en": "Label", "value": 0, "unit": "%" },
+      { "label_ko": "지표명", "label_en": "Label", "value": 0, "unit": "%" },
+      { "label_ko": "지표명", "label_en": "Label", "value": 0, "unit": "%" }
+    ]
+  }
+}

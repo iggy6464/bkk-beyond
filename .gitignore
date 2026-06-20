@@ -6,6 +6,9 @@ Thumbs.db
 __pycache__/
 *.pyc
 
+# 콘텐츠 파이프라인 백업
+*.bak
+
 # Editor
 .vscode/
 .idea/

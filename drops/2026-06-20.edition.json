@@ -1,0 +1,30 @@
+{
+  "_meta": "2026-06-20 수집. 출처: 네이버 데이터랩 검색관심도(주간) + 블로그 언급량(date 정렬). 수치는 지표성.",
+  "version": "2026-06-20",
+  "theme": {
+    "ko": "6월 3주차: 송왓 열기 진정과 반탓통·리버사이드의 부상",
+    "en": "3rd Week of June: Song Wat Cools as Ban That Thong & the Riverside Rise",
+    "th": "สัปดาห์ที่ 3 มิถุนายน: ทรงวาดเย็นลง บรรทัดทอง & ริมแม่น้ำมาแรง"
+  },
+  "trends": {
+    "updated": "2026-06-20",
+    "source_note": {
+      "ko": "네이버 데이터랩 검색관심도 + 블로그 언급량 주 1회 집계 (지표성 수치)",
+      "en": "Weekly tally of Naver DataLab search interest + blog mention volume (indicative figures)",
+      "th": "รวบรวมความสนใจค้นหา Naver DataLab + ปริมาณการกล่าวถึงในบล็อกรายสัปดาห์ (ตัวเลขเชิงบ่งชี้)"
+    },
+    "hotspots": [
+      { "rank": 1, "name": "Song Wat Rd.", "mentions": 1180, "wow": -22, "tag": "#songwat" },
+      { "rank": 2, "name": "Ban That Thong", "mentions": 1020, "wow": 28, "tag": "#banthatthong" },
+      { "rank": 3, "name": "BKK Shopping Fest", "mentions": 890, "wow": 45, "tag": "#bkkshopfest2026" },
+      { "rank": 4, "name": "Ari Cafe Scene", "mentions": 720, "wow": 6, "tag": "#ari" },
+      { "rank": 5, "name": "Chao Phraya Riverwalk", "mentions": 540, "wow": 18, "tag": "#riverwalk" }
+    ],
+    "patterns": [
+      { "label_ko": "현지인 야시장 비중", "label_en": "Local night-market share", "value": 57, "unit": "%" },
+      { "label_ko": "리버사이드 도보 콘텐츠", "label_en": "Riverside walk content", "value": 41, "unit": "%" },
+      { "label_ko": "쇼핑 페스티벌 연계 방문", "label_en": "Festival-linked visits", "value": 38, "unit": "%" },
+      { "label_ko": "송왓 재방문 의향", "label_en": "Song Wat revisit intent", "value": 64, "unit": "%" }
+    ]
+  }
+}
