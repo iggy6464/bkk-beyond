@@ -1171,10 +1171,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const newsletterForm = document.getElementById('newsletter-form');
   const formMsg = document.getElementById('form-msg');
 
-  // ⚠️ 리드 수집 엔드포인트. Formspree(https://formspree.io) 폼 ID로 교체하세요.
-  //    비워두면 백엔드 없이 localStorage 에만 저장됩니다(데이터 유실 방지용 백업).
-  const LEAD_ENDPOINT = ""; // 예: "https://formspree.io/f/xxxxxxxx"
+  // 리드 수집: Google Forms (백엔드 불필요). formResponse 로 no-cors POST → 응답시트 기록.
+  //   필드 매핑은 폼 질문 제목 ↔ entry ID (Email / Context / Lang).
+  const GFORM = {
+    action: "https://docs.google.com/forms/d/e/1FAIpQLSefBTSAMpdaLdnpVoKLjGORJCe8OI0HtWVXdQzWWBPBEK8Brw/formResponse",
+    email: "entry.844113821",
+    context: "entry.502835039",
+    lang: "entry.426612830",
+  };
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  async function submitToGForm(lead) {
+    const body = new URLSearchParams();
+    body.append(GFORM.email, lead.email);
+    body.append(GFORM.context, lead.context);
+    body.append(GFORM.lang, lead.lang);
+    // Google Forms 는 CORS 헤더를 주지 않으므로 no-cors(opaque) — 제출 자체는 정상 기록됨
+    await fetch(GFORM.action, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
+    });
+  }
 
   function saveLeadLocal(lead) {
     try {
@@ -1211,16 +1230,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // 3) localStorage 백업 (항상 — 전송 실패해도 유실 0)
       saveLeadLocal(lead);
 
-      // 4) 엔드포인트 전송 (설정된 경우)
-      if (LEAD_ENDPOINT) {
-        try {
-          await fetch(LEAD_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-            body: JSON.stringify(lead),
-          });
-        } catch (_) { /* 네트워크 실패해도 localStorage 백업 존재 */ }
-      }
+      // 4) Google Forms 전송 (실패해도 localStorage 백업 존재)
+      try {
+        await submitToGForm(lead);
+      } catch (_) { /* 네트워크 실패해도 유실 0 */ }
 
       // 5) 성공 UX
       formMsg.innerText = t["newsletter.success"];
