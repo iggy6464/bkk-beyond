@@ -1,0 +1,31 @@
+{
+  "_meta": "2026-06-20 2차(오후) 수집. 클라우드 routine이 동일 신호로 생성했으나 push 권한(403)으로 미반영 → 로컬에서 동일 파이프라인으로 적용. 출처: 네이버 데이터랩 + 블로그.",
+  "_signals": "송왓 6/8→6/15 -38.7%(정점 후 급락), 아리 -7.3%(안정), 리버사이드 +57%WoW(블로그 급증), 탈랏노이 6/20 블로그 재등장, 쇼핑페스트 종료.",
+  "version": "2026-06-20",
+  "theme": {
+    "ko": "6월 4주차: 리버사이드 1위 등극, 쇼핑 페스트 퇴장",
+    "en": "4th Week of June: Riverside Takes #1, Shopping Fest Bows Out",
+    "th": "สัปดาห์ที่ 4 มิถุนายน: ริมแม่น้ำขึ้นอันดับ 1, เทศกาลช้อปปิ้งลาจอ"
+  },
+  "trends": {
+    "updated": "2026-06-20",
+    "source_note": {
+      "ko": "네이버 데이터랩 검색관심도 + 블로그 언급량 주 1회 집계 (지표성 수치)",
+      "en": "Weekly tally of Naver DataLab search interest + blog mention volume (indicative figures)",
+      "th": "รวบรวมความสนใจค้นหา Naver DataLab + ปริมาณการกล่าวถึงในบล็อกรายสัปดาห์ (ตัวเลขเชิงบ่งชี้)"
+    },
+    "hotspots": [
+      { "rank": 1, "name": "Chao Phraya Riverwalk", "mentions": 720, "wow": 33, "tag": "#riverwalk" },
+      { "rank": 2, "name": "Ban That Thong", "mentions": 840, "wow": -18, "tag": "#banthatthong" },
+      { "rank": 3, "name": "Talat Noi", "mentions": 610, "wow": 19, "tag": "#talatnoi" },
+      { "rank": 4, "name": "Ari Cafe Scene", "mentions": 560, "wow": -7, "tag": "#ari" },
+      { "rank": 5, "name": "Song Wat Rd.", "mentions": 520, "wow": -39, "tag": "#songwat" }
+    ],
+    "patterns": [
+      { "label_ko": "여름 리버사이드 콘텐츠", "label_en": "Summer riverside content", "value": 63, "unit": "%" },
+      { "label_ko": "현지인 야시장·심야 미식", "label_en": "Local night-market & late food", "value": 52, "unit": "%" },
+      { "label_ko": "헤리티지 골목 카페 콘텐츠", "label_en": "Heritage alley cafe content", "value": 41, "unit": "%" },
+      { "label_ko": "쇼핑 페스티벌 연계 방문", "label_en": "Shopping festival-linked visits", "value": 22, "unit": "%" }
+    ]
+  }
+}
