@@ -54,15 +54,17 @@ def main():
     else:
         report.append("[skip] style.css 없음")
 
-    # 2) *.png → data URI (img src)
-    pngs = sorted(set(re.findall(r'src="\./([\w-]+\.png)"', html)))
-    for png in pngs:
-        if os.path.exists(png):
-            data = "data:image/png;base64," + b64_img(png)
-            html = html.replace(f'src="./{png}"', f'src="{data}"')
-            report.append(f"{png} → data URI ({os.path.getsize(png)//1024} KB)")
+    # 2) *.png / *.jpg → data URI (img src)
+    MIME = {"png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg"}
+    imgs = sorted(set(re.findall(r'src="\./([\w-]+\.(?:png|jpe?g))"', html)))
+    for img in imgs:
+        if os.path.exists(img):
+            ext = img.rsplit(".", 1)[-1].lower()
+            data = f"data:{MIME[ext]};base64," + b64_img(img)
+            html = html.replace(f'src="./{img}"', f'src="{data}"')
+            report.append(f"{img} → data URI ({os.path.getsize(img)//1024} KB)")
         else:
-            report.append(f"[skip] {png} 없음")
+            report.append(f"[skip] {img} 없음")
 
     # 3) app.js → <script> (가장 마지막에: JSON 인라인 블록 이후 실행 보장)
     if os.path.exists("app.js"):
