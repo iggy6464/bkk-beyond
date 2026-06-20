@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd /tmp && node bkk-driver.mjs 2>&1\",\"timeout\":60000,\"description\":\"Run CDP browser test scenario\"}",
+  "error": "Exit code 1\n{\n  \"steps\": [\n    {\n      \"name\": \"퀴즈 첫 문항 자동 렌더\",\n      \"pass\": true,\n      \"info\": \"옵션 3개\"\n    },\n    {\n      \"name\": \"결과 화면 표시\",\n      \"pass\": true,\n      \"info\": \"점수 45, 레벨 \\\"🌱 감각적인 예비 방콕러\\\"\"\n    },\n    {\n      \"name\": \"공유 문구 생성(클립보드)\",\n      \"pass\": true,\n      \"info\": \"나의 방콕지수는 38% — 🌱 감각적인 예비 방콕러! 🇹🇭 ⏎ 당신의 방콕지수는 몇 %일까요? 지금 테스트해보세요 👇 …\"\n    },\n    {\n      \"name\": \"토스트 노출\",\n      \"pass\": true,\n      \"info\": \"📋 링크가 복사됐어요! 친구에게 붙여넣어 공유하세요.\"\n    },\n    {\n      \"name\": \"CTA 리...",
+  "timestamp": "2026-06-20T05:53:22.129Z",
+  "retry_count": 1
+}

@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
       "result.shareTpl": "나의 방콕지수는 {score}% — {level}! 🇹🇭\n당신의 방콕지수는 몇 %일까요? 지금 테스트해보세요 👇",
       "share.copied": "📋 링크가 복사됐어요! 친구에게 붙여넣어 공유하세요.",
       "share.failed": "공유에 실패했어요. 링크를 직접 복사해 주세요.",
+      "share.saved": "📸 결과 카드가 저장됐어요! 링크도 복사됐으니 함께 공유하세요.",
+      "card.label": "나의 방콕지수",
+      "card.cta": "당신의 방콕지수는? 지금 테스트 👉 BKK BEYOND",
 
       "curation.subtitle": "Handpicked Hotspots",
       "curation.title": "가장 뜨거운 로컬 골목 3가지 큐레이션",
@@ -104,6 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
       "result.shareTpl": "My BKK Index is {score}% — {level}! 🇹🇭\nWhat's your BKK Index? Take the test now 👇",
       "share.copied": "📋 Link copied! Paste it to share with friends.",
       "share.failed": "Sharing failed. Please copy the link manually.",
+      "share.saved": "📸 Result card saved! The link is copied too — share them together.",
+      "card.label": "My BKK Index",
+      "card.cta": "What's your BKK Index? Take the test 👉 BKK BEYOND",
 
       "curation.subtitle": "Handpicked Hotspots",
       "curation.title": "3 Trendiest Local Alleys Curated",
@@ -181,6 +187,9 @@ document.addEventListener('DOMContentLoaded', () => {
       "result.shareTpl": "ดัชนีกรุงเทพฯ ของฉันคือ {score}% — {level}! 🇹🇭\nแล้วของคุณล่ะ? มาทดสอบกันเลย 👇",
       "share.copied": "📋 คัดลอกลิงก์แล้ว! วางเพื่อแชร์ให้เพื่อน",
       "share.failed": "แชร์ไม่สำเร็จ กรุณาคัดลอกลิงก์ด้วยตนเอง",
+      "share.saved": "📸 บันทึกการ์ดผลลัพธ์แล้ว! คัดลอกลิงก์ให้ด้วย แชร์ไปพร้อมกันได้เลย",
+      "card.label": "ดัชนีกรุงเทพฯ ของฉัน",
+      "card.cta": "ดัชนีของคุณล่ะ? ทดสอบเลย 👉 BKK BEYOND",
 
       "curation.subtitle": "Handpicked Hotspots",
       "curation.title": "3 ตรอกโลคอลที่ฮิปที่สุดที่คัดสรรมาแล้ว",
@@ -914,31 +923,160 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* --- 결과 공유 (Web Share API → 클립보드 폴백) --- */
+  /* --- 결과 공유 카드 이미지 생성 (canvas 1080×1080) --- */
+  const ACCENT = 'hsl(86, 100%, 58%)';
+
+  // 중앙정렬 텍스트를 maxWidth에 맞춰 폰트 축소 + 2줄 래핑
+  function fitLines(ctx, text, maxWidth) {
+    const words = String(text).split(' ');
+    const lines = [];
+    let line = '';
+    for (const w of words) {
+      const test = line ? line + ' ' + w : w;
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line); line = w;
+      } else {
+        line = test;
+      }
+    }
+    if (line) lines.push(line);
+    return lines.slice(0, 2);
+  }
+
+  async function buildShareCard(res, lang) {
+    const t = translations[lang];
+    const W = 1080, H = 1080;
+    const cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    const x = cv.getContext('2d');
+
+    // 웹폰트 로드 보장 (없으면 시스템 폴백)
+    try {
+      await Promise.all([
+        document.fonts.load('900 300px Unbounded'),
+        document.fonts.load('800 60px "Plus Jakarta Sans"'),
+        document.fonts.load('500 32px "Plus Jakarta Sans"'),
+      ]);
+      await document.fonts.ready;
+    } catch (_) {}
+
+    // 배경 그라데이션 (다크 네온 테마)
+    const g = x.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, '#0a0a0a');
+    g.addColorStop(0.55, '#150a20');
+    g.addColorStop(1, '#1c0a16');
+    x.fillStyle = g; x.fillRect(0, 0, W, H);
+
+    // 상단 네온 글로우
+    const rg = x.createRadialGradient(W / 2, 360, 40, W / 2, 360, 620);
+    rg.addColorStop(0, 'rgba(170,255,40,0.16)');
+    rg.addColorStop(1, 'rgba(170,255,40,0)');
+    x.fillStyle = rg; x.fillRect(0, 0, W, H);
+
+    // 프레임
+    x.strokeStyle = 'rgba(255,255,255,0.14)';
+    x.lineWidth = 2;
+    x.strokeRect(48, 48, W - 96, H - 96);
+
+    // 로고 (BKK + BEYOND)
+    x.textBaseline = 'alphabetic';
+    x.textAlign = 'left';
+    x.font = '800 44px Unbounded, sans-serif';
+    x.fillStyle = '#fff';
+    x.fillText('BKK', 96, 150);
+    const bkkW = x.measureText('BKK ').width;
+    x.fillStyle = ACCENT;
+    x.fillText('BEYOND', 96 + bkkW, 150);
+
+    // 라벨
+    x.textAlign = 'center';
+    x.fillStyle = 'rgba(255,255,255,0.6)';
+    x.font = '700 36px "Plus Jakarta Sans", sans-serif';
+    x.fillText((t['card.label'] || 'MY BKK INDEX').toUpperCase(), W / 2, 360);
+
+    // 대형 퍼센트 (폭에 맞춰 자동 축소)
+    const pct = res.percent + '%';
+    let pSize = 320;
+    x.fillStyle = ACCENT;
+    do {
+      x.font = `900 ${pSize}px Unbounded, sans-serif`;
+      if (x.measureText(pct).width <= W - 200) break;
+      pSize -= 12;
+    } while (pSize > 160);
+    x.fillText(pct, W / 2, 640);
+
+    // 레벨 타이틀 (최대 2줄)
+    x.fillStyle = '#fff';
+    x.font = '800 62px "Plus Jakarta Sans", sans-serif';
+    const lines = fitLines(x, res.level, W - 200);
+    let ly = 760;
+    for (const ln of lines) { x.fillText(ln, W / 2, ly); ly += 76; }
+
+    // 구분선
+    x.strokeStyle = 'rgba(255,255,255,0.18)';
+    x.lineWidth = 2;
+    x.beginPath();
+    x.moveTo(W / 2 - 120, ly + 6);
+    x.lineTo(W / 2 + 120, ly + 6);
+    x.stroke();
+
+    // 하단 CTA
+    x.fillStyle = 'rgba(255,255,255,0.7)';
+    x.font = '500 34px "Plus Jakarta Sans", sans-serif';
+    x.fillText(t['card.cta'] || 'bkk-beyond', W / 2, 980);
+
+    return await new Promise(r => cv.toBlob(r, 'image/png', 0.92));
+  }
+
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  }
+
+  /* --- 결과 공유: 카드 이미지 → Web Share(파일) → 다운로드+링크복사 폴백 --- */
   const btnShareResult = document.getElementById('btn-share-result');
   if (btnShareResult) {
     btnShareResult.addEventListener('click', async () => {
       const t = translations[currentLang];
       const url = window.location.href.split('#')[0];
-      const text = t["result.shareTpl"]
+      const text = t['result.shareTpl']
         .replace('{score}', lastResult.percent)
         .replace('{level}', lastResult.level);
 
+      btnShareResult.disabled = true;
+      const prevLabel = btnShareResult.innerText;
+      btnShareResult.innerText = '⏳';
+
       try {
-        if (navigator.share) {
-          await navigator.share({ title: t["result.shareTitle"], text, url });
+        const blob = await buildShareCard(lastResult, currentLang);
+        const file = new File([blob], 'my-bkk-index.png', { type: 'image/png' });
+
+        // 1순위: 이미지 파일 공유 (모바일 네이티브 시트)
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: t['result.shareTitle'], text });
           return;
         }
-        await navigator.clipboard.writeText(`${text}\n${url}`);
-        showToast(t["share.copied"]);
+
+        // 폴백: 이미지 다운로드 + 링크 클립보드 복사
+        downloadBlob(blob, 'my-bkk-index.png');
+        try { await navigator.clipboard.writeText(`${text}\n${url}`); } catch (_) {}
+        showToast(t['share.saved']);
       } catch (err) {
         if (err && err.name === 'AbortError') return; // 사용자가 공유 취소
+        // 카드 생성/공유 실패 시 텍스트 공유로 최종 폴백
         try {
+          if (navigator.share) { await navigator.share({ title: t['result.shareTitle'], text, url }); return; }
           await navigator.clipboard.writeText(`${text}\n${url}`);
-          showToast(t["share.copied"]);
+          showToast(t['share.copied']);
         } catch (_) {
-          showToast(t["share.failed"]);
+          showToast(t['share.failed']);
         }
+      } finally {
+        btnShareResult.disabled = false;
+        btnShareResult.innerText = prevLabel;
       }
     });
   }
