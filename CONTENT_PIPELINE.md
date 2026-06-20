@@ -88,11 +88,17 @@ git diff --stat                     # 변경 범위 확인
 
 ---
 
-## 스케줄링
+## 스케줄링 — 현재: 온디맨드(On-demand)
 
-수집 단계는 에이전트(LLM+MCP)가 필요하므로 완전 무인 cron 은 부적합하다. 권장:
+수집 단계는 에이전트(LLM+MCP)가 필요하므로 완전 무인 cron 은 부적합하다.
 
-- **OMC 루틴 / `/schedule`** 로 2주마다 "Step 1~3 수행" 에이전트 작업 예약
-- 또는 수동 트리거 시 이 문서를 따라 진행
+**운영 방식: 격주(2주) 온디맨드.** 에이전트에게 "**트렌드 갱신해줘**" 라고 하면 이 문서의
+Step 1~6 (수집 → drop 작성 → 검증 → 적용 → push)을 한 번에 수행한다. GitHub Pages 가
+push 시 자동 재배포하므로 별도 배포 단계는 없다.
+
+> ℹ️ 클라우드 routine(`trig_018T2zHQMxWjbWGehjBixZWs`)도 만들어 두었으나, 클라우드↔GitHub
+> 연동이 **읽기 전용**이라 `git push` 가 403(Resource not accessible by integration)으로 막혀
+> **비활성화** 상태다. 완전 무인이 필요해지면 claude.ai 의 GitHub 연결에 write 권한을 부여한 뒤
+> routine 을 `enabled:true` 로 되살리면 된다(수집·작성·검증·빌드까지는 이미 정상 동작 확인됨).
 
 병합(`update_content.py`)만 떼어 CI 에서 `--dry-run` 검증에 쓸 수 있다(drop PR 게이트).
