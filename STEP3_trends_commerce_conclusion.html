@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STEP 3 소결론 — 트렌드 + 커머스</title>
+<style>
+  :root{
+    --bg:hsl(258,60%,6%); --card:hsla(265,50%,16%,0.55);
+    --magenta:hsl(322,100%,60%); --cyan:hsl(180,100%,55%); --lime:hsl(86,100%,58%);
+    --violet:hsl(265,95%,66%); --txt:hsl(280,30%,97%); --muted:hsl(270,18%,76%);
+    --border:hsla(322,90%,65%,0.22);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:
+    radial-gradient(circle at 15% 10%,hsla(322,100%,60%,0.10),transparent 40%),
+    radial-gradient(circle at 85% 80%,hsla(180,100%,55%,0.08),transparent 42%),
+    var(--bg);color:var(--txt);line-height:1.65;padding:48px 20px}
+  .wrap{max-width:920px;margin:0 auto}
+  .mono{font-family:'Space Mono',ui-monospace,monospace;letter-spacing:.1em}
+  h1{font-size:1.95rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.4rem;
+    text-shadow:0 0 28px hsla(322,100%,60%,.35)}
+  h1 .accent{background:linear-gradient(92deg,var(--cyan),var(--lime));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--cyan);font-size:.8rem;text-transform:uppercase;margin-bottom:2rem}
+  h2{font-size:1.25rem;margin:2.4rem 0 1rem;padding-left:.7rem;
+    border-left:3px solid var(--magenta);box-shadow:-3px 0 14px hsla(322,100%,60%,.4)}
+  h3{font-size:1rem;color:var(--cyan);margin:1.2rem 0 .5rem}
+  p,li{color:var(--muted);margin-bottom:.5rem}
+  table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+  th,td{padding:.6rem .8rem;text-align:left;border-bottom:1px solid var(--border)}
+  th{color:var(--cyan);font-family:'Space Mono',monospace;font-size:.78rem;text-transform:uppercase}
+  td:last-child,th:last-child{color:var(--txt)}
+  .ok{color:var(--lime);font-weight:700}.no{color:var(--magenta);font-weight:700}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;
+    padding:1.4rem 1.6rem;margin:1.2rem 0;
+    box-shadow:0 8px 40px rgba(0,0,0,.45),0 0 30px hsla(265,95%,66%,.12)}
+  code{font-family:'Space Mono',monospace;background:hsla(322,100%,60%,.12);
+    padding:.1rem .4rem;border-radius:4px;color:var(--lime);font-size:.85em}
+  pre{background:hsla(265,50%,12%,.7);border:1px solid var(--border);border-radius:10px;
+    padding:1rem 1.2rem;overflow-x:auto;margin:1rem 0}
+  pre code{background:none;color:var(--txt);padding:0}
+  .footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);
+    font-size:.8rem;color:var(--muted)}
+  .badge{display:inline-block;font-family:'Space Mono',monospace;font-size:.7rem;
+    color:var(--bg);background:var(--lime);padding:.2rem .6rem;border-radius:20px;
+    box-shadow:0 0 14px hsla(86,100%,58%,.6);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="sub mono">BKK BEYOND · Redesign Log</p>
+  <h1>STEP 3 소결론 — <span class="accent">트렌드(#2) + 커머스(#4)</span></h1>
+  <p class="mono" style="color:var(--muted);font-size:.85rem">app.js v3→v4 · style v2→v3 · JSON 확장 · 2026-06-04</p>
+
+  <h2>1. 핵심 설계 판단 — 데이터 출처</h2>
+  <div class="card">
+    <p><span class="badge">원칙 #4</span></p>
+    <p><strong style="color:var(--txt)">실시간 소셜 메타데이터 자동 수집은 불가</strong> — TikTok/IG가 위치·해시태그 API 미제공, 스크래핑은 ToS·법적 리스크. 따라서 <strong style="color:var(--txt)">에디터 주기 분석 → JSON 입력 → 페이지 시각화</strong>(STEP2 일관 모델). 개요 #3(주 2회 운영)과 정합.</p>
+  </div>
+
+  <h2>2. 데이터 모델 확장</h2>
+  <pre><code>current: { version, theme, translations,   ← 불변(33키)
+           trends: {...},   ← #2 신규
+           shops: [...] }   ← #4 신규</code></pre>
+  <table>
+    <tr><th>블록</th><th>내용</th><th>invariant</th></tr>
+    <tr><td>trends.hotspots[]</td><td>rank·name·mentions·wow·tag</td><td>rank 1..N 연속</td></tr>
+    <tr><td>trends.patterns[]</td><td>label_ko/en·value·unit</td><td>ko/en 필수</td></tr>
+    <tr><td>trends.source_note</td><td>ko/en/th</td><td>3언어</td></tr>
+    <tr><td>shops[]</td><td>name·category·price·url·coupon</td><td>URL https/빈문자(보안)</td></tr>
+  </table>
+
+  <h2>3. 구현 (원칙 #8 분리: #2 → #4)</h2>
+  <div class="card">
+    <h3>#2 트렌드</h3>
+    <p>HTML <code>#trends-section</code> · app.js <code>renderTrends(lang)</code>(랭킹 WoW색상 + 게이지 + source) · CSS 네온 게이지(magenta→cyan).</p>
+    <h3>#4 커머스</h3>
+    <p>HTML <code>#shops-section</code> · app.js <code>renderShops(lang)</code>(가격·쿠폰·지도/샵 링크) · CSS 호버 글로우 + 쿠폰 라임박스.</p>
+    <h3>보안 처리</h3>
+    <ul>
+      <li><code>safeUrl()</code>: https/빈문자만 허용 (<code>javascript:</code> 차단)</li>
+      <li><code>esc()</code>: HTML 이스케이프 (XSS 방어) · 외부링크 <code>rel="noopener noreferrer"</code></li>
+      <li><strong style="color:var(--txt)">결제 기능 없음</strong> — 외부 샵 채널 연결만 (금융 거래 미수행)</li>
+    </ul>
+  </div>
+
+  <h2>4. 검증 (file:// 환경)</h2>
+  <table>
+    <tr><th>항목</th><th>기대</th><th>실측</th></tr>
+    <tr><td>핫플 랭킹</td><td>5</td><td class="ok">5 ✅</td></tr>
+    <tr><td>패턴 게이지</td><td>4</td><td class="ok">4 ✅</td></tr>
+    <tr><td>샵 카드</td><td>4</td><td class="ok">4 ✅</td></tr>
+    <tr><td>비-https 링크(보안)</td><td>0</td><td class="ok">0 ✅</td></tr>
+    <tr><td>JS 런타임 에러</td><td>0</td><td class="ok">0 ✅</td></tr>
+    <tr><td>인라인 ≡ JSON</td><td>OK</td><td class="ok">OK ✅</td></tr>
+    <tr><td>curation 33키 보존</td><td>33</td><td class="ok">33 ✅</td></tr>
+  </table>
+
+  <h2>5. Before / After</h2>
+  <table>
+    <tr><th>항목</th><th>BEFORE (STEP2)</th><th>AFTER (STEP3)</th></tr>
+    <tr><td>섹션 수</td><td>6</td><td class="ok">8</td></tr>
+    <tr><td>개요 #2 트렌드</td><td class="no">미구현</td><td class="ok">✅ 랭킹+패턴</td></tr>
+    <tr><td>개요 #4 커머스</td><td class="no">미구현</td><td class="ok">✅ 샵카드+링크</td></tr>
+    <tr><td>JSON current 블록</td><td>3</td><td>5</td></tr>
+    <tr><td>app.js 렌더 함수</td><td>4</td><td>6</td></tr>
+  </table>
+
+  <h2>6. Rollback & 신규 Invariant</h2>
+  <div class="card">
+    <p><strong style="color:var(--txt)">Rollback (원칙 #6):</strong> app.v3.js / style.v2.css / bkk_content.v2.json / index.v2.html 보존 — 각 O(1). #2·#4가 데이터 블록 단위로 분리돼 부분 롤백 가능.</p>
+    <p><strong style="color:var(--txt)">신규 invariant (원칙 #3):</strong> ① trends.hotspots rank 1..N 연속 · ② shops URL은 https/빈문자 — 운영 입력 시 재검증.</p>
+  </div>
+
+  <div class="footer mono">
+    NEXT → Google Drive 연결: 단계별 산출물 + 주간 아카이브 일괄 업로드 예정<br>
+    © 2026 BKK BEYOND · Redesign Conclusion (STEP 1–3 완료)
+  </div>
+</div>
+</body>
+</html>

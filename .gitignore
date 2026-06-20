@@ -1,0 +1,12 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Python build
+__pycache__/
+*.pyc
+
+# Editor
+.vscode/
+.idea/
+*.swp
