@@ -1,0 +1,44 @@
+{
+  "_meta": "2026-07-13 트렌드 재수집(정정). 선행 drop(2026-07-13.trends.json)의 TOP5 중 Chao Phraya Riverwalk 를 2위(987)로 올린 근거가 재현되지 않아 동일 절차로 재수집·정정한다. 수집 2026-07-13 KST.",
+  "_method": "데이터랩은 요청당 키워드그룹 5개가 상한이라 후보 8곳을 한 번에 비교할 수 없다. '조드페어'를 앵커로 두 요청 모두에 포함시켜 상호 비교 가능하게 했다. 두 요청에서 앵커 시계열이 완전히 동일(59.98/79.32/76.76/82.97/100)하게 나와 정규화 스케일이 같음을 확인 → 재스케일 없이 직접 비교했다. 주간(week) 2026-06-08~2026-07-12.",
+  "_keywords": {
+    "요청A": {
+      "조드페어": ["조드페어", "조드페어야시장", "방콕야시장"],
+      "리버워크": ["짜오프라야", "방콕리버사이드", "아시아티크"],
+      "루프탑": ["방콕루프탑", "루프탑바", "마하나콘"],
+      "송왓": ["송왓", "송왓로드"],
+      "야오와랏": ["야오와랏", "방콕차이나타운"]
+    },
+    "요청B": {
+      "조드페어(앵커)": ["조드페어", "조드페어야시장", "방콕야시장"],
+      "반탓통": ["반탓통", "방콕반탓통"],
+      "탈랏노이": ["탈랏노이", "방콕탈랏노이"],
+      "아리": ["방콕아리", "아리소이"],
+      "짜런끄룽": ["짜런끄룽", "차런크룽"]
+    }
+  },
+  "_derivation": "mentions = 2026-07-06 주 상대지수 x10 반올림. wow = 전주(2026-06-29) 대비 증감률(%). 원시 지수(0706): 조드페어 100, 송왓 37.59, 루프탑 26.52, 야오와랏 25.30, 리버워크 20.56, 아리 3.41. 반탓통·탈랏노이·짜런끄룽은 데이터랩 응답 data:[] (검색량 임계 미달, 측정 불가) → 제외. 아리는 측정되나 지수 3.41로 TOP5 미달. patterns = TOP5 지수 점유율(합 100 되도록 1위만 내림).",
+  "_crosscheck": "블로그(sort=date) 교차 확인 — '방콕 조드페어 야시장' 총 11,084건·최근 3일 내 신규 포스팅 다수, '방콕 송왓로드' 최근 글에서 '핫한 로드로서의 정점'·'핫플' 언급. 데이터랩 상위 2곳이 실제 회자와 일치.",
+  "version": "2026-07-13",
+  "trends": {
+    "updated": "2026-07-13",
+    "source_note": {
+      "ko": "네이버 데이터랩 검색관심도(2026-07-06 주, 0~100 상대지수를 10배 환산, 조드페어 앵커 기준 2회 요청 통합) + 블로그 언급 교차 확인 — 지표성 수치",
+      "en": "Naver DataLab search interest (week of 2026-07-06, 0–100 relative index ×10, two requests joined via a shared anchor keyword) cross-checked with blog mentions — indicative figures",
+      "th": "ความสนใจค้นหา Naver DataLab (สัปดาห์ 2026-07-06 ดัชนีสัมพัทธ์ 0–100 คูณ 10 รวมสองคำขอผ่านคำหลักยึด) ตรวจสอบร่วมกับการกล่าวถึงในบล็อก — ตัวเลขเชิงบ่งชี้"
+    },
+    "hotspots": [
+      { "rank": 1, "name": "Jodd Fairs Night Market", "mentions": 1000, "wow": 21, "tag": "#joddfairs" },
+      { "rank": 2, "name": "Song Wat Rd.", "mentions": 376, "wow": 10, "tag": "#songwat" },
+      { "rank": 3, "name": "Rama IV Rooftop Bars", "mentions": 265, "wow": 7, "tag": "#rooftop" },
+      { "rank": 4, "name": "Yaowarat Chinatown", "mentions": 253, "wow": -6, "tag": "#chinatown" },
+      { "rank": 5, "name": "Chao Phraya Riverwalk", "mentions": 206, "wow": -2, "tag": "#riverwalk" }
+    ],
+    "patterns": [
+      { "label_ko": "야시장·심야 미식", "label_en": "Night market & late-night food", "value": 47, "unit": "%" },
+      { "label_ko": "헤리티지 골목(송왓·야오와랏)", "label_en": "Heritage alleys (Song Wat & Yaowarat)", "value": 30, "unit": "%" },
+      { "label_ko": "루프탑 바·야경", "label_en": "Rooftop bars & night views", "value": 13, "unit": "%" },
+      { "label_ko": "리버사이드 산책", "label_en": "Riverside walks", "value": 10, "unit": "%" }
+    ]
+  }
+}

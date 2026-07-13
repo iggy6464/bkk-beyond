@@ -116,70 +116,70 @@
     "trends": {
       "updated": "2026-07-13",
       "source_note": {
-        "ko": "네이버 데이터랩 검색관심도(2026-07-06 주, 0~100 상대지수를 10배 환산) + 블로그 언급 교차 확인 — 지표성 수치",
-        "en": "Naver DataLab search interest (week of 2026-07-06, 0–100 relative index ×10) cross-checked with blog mentions — indicative figures",
-        "th": "ความสนใจค้นหา Naver DataLab (สัปดาห์ 2026-07-06 ดัชนีสัมพัทธ์ 0–100 คูณ 10) ตรวจสอบร่วมกับการกล่าวถึงในบล็อก — ตัวเลขเชิงบ่งชี้"
+        "ko": "네이버 데이터랩 검색관심도(2026-07-06 주, 0~100 상대지수를 10배 환산, 조드페어 앵커 기준 2회 요청 통합) + 블로그 언급 교차 확인 — 지표성 수치",
+        "en": "Naver DataLab search interest (week of 2026-07-06, 0–100 relative index ×10, two requests joined via a shared anchor keyword) cross-checked with blog mentions — indicative figures",
+        "th": "ความสนใจค้นหา Naver DataLab (สัปดาห์ 2026-07-06 ดัชนีสัมพัทธ์ 0–100 คูณ 10 รวมสองคำขอผ่านคำหลักยึด) ตรวจสอบร่วมกับการกล่าวถึงในบล็อก — ตัวเลขเชิงบ่งชี้"
       },
       "hotspots": [
         {
           "rank": 1,
           "name": "Jodd Fairs Night Market",
           "mentions": 1000,
-          "wow": 24,
+          "wow": 21,
           "tag": "#joddfairs"
         },
         {
           "rank": 2,
-          "name": "Chao Phraya Riverwalk",
-          "mentions": 987,
-          "wow": 2,
-          "tag": "#riverwalk"
+          "name": "Song Wat Rd.",
+          "mentions": 376,
+          "wow": 10,
+          "tag": "#songwat"
         },
         {
           "rank": 3,
           "name": "Rama IV Rooftop Bars",
-          "mentions": 654,
-          "wow": 24,
+          "mentions": 265,
+          "wow": 7,
           "tag": "#rooftop"
         },
         {
           "rank": 4,
-          "name": "Song Wat Rd.",
-          "mentions": 502,
-          "wow": 12,
-          "tag": "#songwat"
+          "name": "Yaowarat Chinatown",
+          "mentions": 253,
+          "wow": -6,
+          "tag": "#chinatown"
         },
         {
           "rank": 5,
-          "name": "Yaowarat Chinatown",
-          "mentions": 331,
-          "wow": -6,
-          "tag": "#chinatown"
+          "name": "Chao Phraya Riverwalk",
+          "mentions": 206,
+          "wow": -2,
+          "tag": "#riverwalk"
         }
       ],
       "patterns": [
         {
           "label_ko": "야시장·심야 미식",
           "label_en": "Night market & late-night food",
-          "value": 33,
-          "unit": "%"
-        },
-        {
-          "label_ko": "여름 리버사이드 콘텐츠",
-          "label_en": "Summer riverside content",
-          "value": 32,
-          "unit": "%"
-        },
-        {
-          "label_ko": "루프탑 바·야경",
-          "label_en": "Rooftop bars & night views",
-          "value": 21,
+          "value": 47,
           "unit": "%"
         },
         {
           "label_ko": "헤리티지 골목(송왓·야오와랏)",
           "label_en": "Heritage alleys (Song Wat & Yaowarat)",
-          "value": 14,
+          "value": 30,
+          "unit": "%"
+        },
+        {
+          "label_ko": "루프탑 바·야경",
+          "label_en": "Rooftop bars & night views",
+          "value": 13,
+          "unit": "%"
+        },
+        {
+          "label_ko": "리버사이드 산책",
+          "label_en": "Riverside walks",
+          "value": 10,
           "unit": "%"
         }
       ]
