@@ -1,0 +1,26 @@
+{
+  "_meta": "2주 P1 트렌드 갱신. 수집: 2026-07-13 KST. 데이터랩 주간(2026-06-08~07-12, 5개 그룹 단일 요청 = ratio 상호 비교 가능) + 블로그 date 정렬 교차 확인.",
+  "_derivation": "mentions = 기준주(2026-07-06) 상대지수 x10 반올림. wow = 전주(2026-06-29) 대비 증감률(%). 반탓통/탈랏노이는 데이터랩 임계 미달(측정 불가)로 이탈, 아리는 냉각(15.8->11.1)으로 이탈.",
+  "version": "2026-07-13",
+  "trends": {
+    "updated": "2026-07-13",
+    "source_note": {
+      "ko": "네이버 데이터랩 검색관심도(2026-07-06 주, 0~100 상대지수를 10배 환산) + 블로그 언급 교차 확인 — 지표성 수치",
+      "en": "Naver DataLab search interest (week of 2026-07-06, 0–100 relative index ×10) cross-checked with blog mentions — indicative figures",
+      "th": "ความสนใจค้นหา Naver DataLab (สัปดาห์ 2026-07-06 ดัชนีสัมพัทธ์ 0–100 คูณ 10) ตรวจสอบร่วมกับการกล่าวถึงในบล็อก — ตัวเลขเชิงบ่งชี้"
+    },
+    "hotspots": [
+      { "rank": 1, "name": "Jodd Fairs Night Market", "mentions": 1000, "wow": 24, "tag": "#joddfairs" },
+      { "rank": 2, "name": "Chao Phraya Riverwalk", "mentions": 987, "wow": 2, "tag": "#riverwalk" },
+      { "rank": 3, "name": "Rama IV Rooftop Bars", "mentions": 654, "wow": 24, "tag": "#rooftop" },
+      { "rank": 4, "name": "Song Wat Rd.", "mentions": 502, "wow": 12, "tag": "#songwat" },
+      { "rank": 5, "name": "Yaowarat Chinatown", "mentions": 331, "wow": -6, "tag": "#chinatown" }
+    ],
+    "patterns": [
+      { "label_ko": "야시장·심야 미식", "label_en": "Night market & late-night food", "value": 33, "unit": "%" },
+      { "label_ko": "여름 리버사이드 콘텐츠", "label_en": "Summer riverside content", "value": 32, "unit": "%" },
+      { "label_ko": "루프탑 바·야경", "label_en": "Rooftop bars & night views", "value": 21, "unit": "%" },
+      { "label_ko": "헤리티지 골목(송왓·야오와랏)", "label_en": "Heritage alleys (Song Wat & Yaowarat)", "value": 14, "unit": "%" }
+    ]
+  }
+}
