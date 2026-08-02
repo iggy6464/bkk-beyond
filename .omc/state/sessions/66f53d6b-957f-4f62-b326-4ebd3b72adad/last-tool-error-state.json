@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"git show --stat 5d5fd81 | head -30 && echo \\\"=== docs ===\\\" && ls *.md docs 2>/dev/null\",\"description\":\"Inspect last trend update commit\"}",
+  "error": "Exit code 1\ncommit 5d5fd814f1d96836fb8bcdf18aeac938600aed8d\nAuthor: iggy64 <iggy6464@gmail.com>\nDate:   Sat Jun 20 09:39:52 2026 +0200\n\n    content: 트렌드 갱신 2026-06-20 — 리버사이드 1위, 쇼핑페스트 퇴장, 송왓 #5 급락\n    \n    클라우드 routine이 동일 신호로 생성했으나 GitHub 쓰기권한(403)으로 미반영 →\n    로컬에서 동일 파이프라인으로 적용·push.\n    \n    - 데이터: 네이버 데이터랩(송왓 -38.7%, 아리 -7.3%, 리버사이드 +57%WoW) + 블로그\n    - TOP5: 리버워크#1(+33)·반탓통#2(-18)·탈랏노이#3(+19,재진입)·아리#4(-7)·송왓#5(-39)\n    - 에디션 교체 → 아카이브 [2026-06-20, 2026-06-01, 2026-05-18]\n    \n    Co-Author...",
+  "timestamp": "2026-07-13T01:08:28.138Z",
+  "retry_count": 2
+}

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       "hero.subtitle": "Bangkok for the 10+ time travelers",
       "hero.title": "당신이 알던 방콕은 잊으세요.<span>11번째 방콕은 진짜 로컬이니까.</span>",
-      "hero.desc": "카오산로드와 왓아룬을 벗어나, 현지 Gen Z들이 숨겨두고 모이는 예술 골목 송왓부터 한밤중의 미식 성지 반탓통까지. 오직 방콕 베테랑을 위해 큐레이션된 비밀 리스트를 만나보세요.",
+      "hero.desc": "카오산로드와 왓아룬을 벗어나, 현지 Gen Z들이 숨겨두고 모이는 예술 골목 송왓부터 무지개 텐트의 심야 미식 성지 조드페어까지. 오직 방콕 베테랑을 위해 큐레이션된 비밀 리스트를 만나보세요.",
       "hero.btnQuiz": "나의 방콕지수 진단하기",
       "hero.btnCuration": "로컬 큐레이션 탐색",
 
@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
       "curation.title": "가장 뜨거운 로컬 골목 3가지 큐레이션",
       "curation.desc": "방콕 현지 크리에이터와 Gen Z 세대들이 주말마다 향하는 그들만의 숨겨진 거리를 소개합니다.",
       "curation.tabSongwat": "SONG WAT (송왓)",
-      "curation.tabBanthatthong": "BAN THAT THONG (반탓통)",
-      "curation.tabTalatnoi": "TALAT NOI (탈랏노이)",
+      "curation.tabBanthatthong": "JODD FAIRS (조드페어)",
+      "curation.tabTalatnoi": "YAOWARAT (야오와랏)",
 
       "secrets.badge": "Nocturnal Exclusives",
       "secrets.subtitle": "Chinatown & Thonglor After Dark",
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       "hero.subtitle": "Bangkok for the 10+ time travelers",
       "hero.title": "Forget the Bangkok you knew.<span>The 11th Bangkok is authentic local.</span>",
-      "hero.desc": "Escape Khao San and Wat Arun. Explore Song Wat—where local Gen Z artists gather in historic shophouses, and Ban That Thong—the midnight culinary playground. Curated exclusively for Bangkok veterans.",
+      "hero.desc": "Escape Khao San and Wat Arun. Explore Song Wat—where local Gen Z artists gather in historic shophouses, and Jodd Fairs—the midnight feast under rainbow tents. Curated exclusively for Bangkok veterans.",
       "hero.btnQuiz": "Diagnose My BKK Index",
       "hero.btnCuration": "Explore Curation",
 
@@ -115,8 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
       "curation.title": "3 Trendiest Local Alleys Curated",
       "curation.desc": "Introducing the secret streets where Bangkok creators and Gen Z head every weekend.",
       "curation.tabSongwat": "SONG WAT",
-      "curation.tabBanthatthong": "BAN THAT THONG",
-      "curation.tabTalatnoi": "TALAT NOI",
+      "curation.tabBanthatthong": "JODD FAIRS",
+      "curation.tabTalatnoi": "YAOWARAT",
 
       "secrets.badge": "Nocturnal Exclusives",
       "secrets.subtitle": "Chinatown & Thonglor After Dark",
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       "hero.subtitle": "Bangkok for the 10+ time travelers",
       "hero.title": "ลืมกรุงเทพฯ ที่คุณเคยรู้จักไปได้เลย<span>เพราะกรุงเทพฯ ครั้งที่ 11 จะเป็นโลคอลตัวจริง</span>",
-      "hero.desc": "หลีกหนีจากข้าวสารและวัดอรุณฯ มาสำรวจถนนทรงวาดที่เหล่านักสร้างสรรค์และ Gen Z มารวมตัวกันในตึกแถวโบราณ และบรรทัดทอง แหล่งกินดื่มยามค่ำคืน คัดสรรพิเศษเพื่อผู้เชี่ยวชาญกรุงเทพฯ ตัวจริง",
+      "hero.desc": "หลีกหนีจากข้าวสารและวัดอรุณฯ มาสำรวจถนนทรงวาดที่เหล่านักสร้างสรรค์และ Gen Z มารวมตัวกันในตึกแถวโบราณ และจ๊อดแฟร์ แหล่งกินดื่มยามดึกใต้เต็นท์สายรุ้ง คัดสรรพิเศษเพื่อผู้เชี่ยวชาญกรุงเทพฯ ตัวจริง",
       "hero.btnQuiz": "ตรวจระดับความเป็นกรุงเทพฯ ของคุณ",
       "hero.btnCuration": "สำรวจจุดคัดสรร",
 
@@ -195,8 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
       "curation.title": "3 ตรอกโลคอลที่ฮิปที่สุดที่คัดสรรมาแล้ว",
       "curation.desc": "ขอแนะนำถนนลับที่เหล่านักสร้างสรรค์และวัยรุ่นกรุงเทพฯ ต่างมุ่งหน้าไปทุกวันหยุดสุดสัปดาห์",
       "curation.tabSongwat": "ทรงวาด",
-      "curation.tabBanthatthong": "บรรทัดทอง",
-      "curation.tabTalatnoi": "ตลาดน้อย",
+      "curation.tabBanthatthong": "จ๊อดแฟร์",
+      "curation.tabTalatnoi": "เยาวราช",
 
       "secrets.badge": "Nocturnal Exclusives",
       "secrets.subtitle": "Chinatown & Thonglor After Dark",
