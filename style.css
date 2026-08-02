@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@400..900&family=Noto+Sans+Thai:wght@400..800&display=swap');
 
 /* --- CUSTOM PROPERTIES --- */
 :root {
@@ -26,10 +26,11 @@
   --glow-magenta: 0 0 16px hsla(322, 100%, 60%, 0.65), 0 0 40px hsla(322, 100%, 60%, 0.35);
   --glow-cyan: 0 0 16px hsla(180, 100%, 55%, 0.6), 0 0 40px hsla(180, 100%, 55%, 0.3);
 
-  --font-serif: 'Unbounded', system-ui, sans-serif;   /* (이름 유지) display 대체 */
-  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-display: 'Unbounded', system-ui, sans-serif; /* Cinzel → Unbounded */
-  --font-mono: 'Space Mono', monospace;
+  /* Unbounded·Jakarta는 라틴 전용 → 한글은 Noto Sans KR, 태국어는 Noto Sans Thai 폴백 */
+  --font-serif: 'Unbounded', 'Noto Sans KR', 'Noto Sans Thai', system-ui, sans-serif;   /* (이름 유지) display 대체 */
+  --font-sans: 'Plus Jakarta Sans', 'Noto Sans KR', 'Noto Sans Thai', system-ui, sans-serif;
+  --font-display: 'Unbounded', 'Noto Sans KR', 'Noto Sans Thai', system-ui, sans-serif; /* Cinzel → Unbounded */
+  --font-mono: 'Space Mono', 'Noto Sans KR', 'Noto Sans Thai', monospace;
 
   --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   --transition-fast: all 0.2s ease;
@@ -54,6 +55,7 @@ body {
   font-family: var(--font-sans);
   color: var(--color-text-light);
   line-height: 1.6;
+  word-break: keep-all;   /* 한글 어절 단위 줄바꿈 — 라틴·태국어에는 무영향 */
   overflow-x: hidden;
   background: radial-gradient(circle at 50% 0%, hsl(265, 70%, 14%) 0%, var(--color-bg-dark) 70%);
 }
@@ -381,6 +383,8 @@ ul {
   font-size: clamp(2rem, 3.5vw, 3rem);
   color: var(--color-text-light);
   margin-bottom: 1.5rem;
+  word-break: keep-all;   /* 한글 어절 단위 줄바꿈 ("큐레이|션" 방지) */
+  text-wrap: balance;
 }
 
 .section-description {
@@ -633,6 +637,8 @@ ul {
   font-family: var(--font-serif);
   font-size: clamp(2.2rem, 4vw, 3rem);
   margin-bottom: 1.5rem;
+  word-break: keep-all;
+  text-wrap: balance;
 }
 
 .district-desc {
@@ -1412,7 +1418,8 @@ body::after {
 }
 
 /* 탭/셀렉터 active — 네온 언더라인 */
-.tab-btn.active, .select-btn.active, .time-btn.active, .lang-btn.active {
+/* .time-btn.active·.lang-btn.active 제외 — 배경이 이미 시안(--color-gold)이라 글자가 사라짐 */
+.tab-btn.active, .select-btn.active {
   color: var(--neon-cyan);
   text-shadow: 0 0 12px hsla(180,100%,55%,0.6);
 }
